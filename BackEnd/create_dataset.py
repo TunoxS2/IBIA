@@ -3,7 +3,7 @@
 """
 HACER UN PROGRAMA QUE:
 
-    1. PIDA LA CANTIDAD DE CASOS DE PRUEBA
+    1. PIDA LA CANTIDAD DE CASOS DE PRUEBA (OMITIR ESTA PASO)
 
     2. POR CADA CASO DE PRUEBA, PIDA EL NOMBRE, LA CEDULA, EL CELULAR
 
@@ -18,7 +18,7 @@ HACER UN PROGRAMA QUE:
 
     5. SI LA ENCUENTRA, REVISE EL CONTADOR DE REGISTROS:
 
-        5.1 SI CONTADOR ESTÁ ENTRE 1 Y 4, AUMENTE EN 1 EL CONTADOR E INGRESE LA
+        5.1 SI CONTADOR ESTA ENTRE 1 Y 4, AUMENTE EN 1 EL CONTADOR E INGRESE LA
             HORA DEL REGISTRO EN UNA NUEVA COLUMNA
 
         5.2 SI CONTADOR ES MAYOR A 4, COMPARE EL VALOR DE LA HORA DEL REGISTRO
@@ -42,31 +42,57 @@ HACER UN PROGRAMA QUE:
     7. RETORNE EL NUEVO ARCHIVO CSV LISTO PARA INGRESAR A CECI
 """
 
-from datetime import datetime, date, time, timedelta
+import time
+import pandas as pd
 import calendar
 import csv
 
 def create_dataset():
 
-    a = int(input("ingrese la cantidad de casos de prueba: "))
-    for i in range(a):
+    # OBTENER LOS DATOS DEL USUARIO
 
-        #nombre = input("Ingrese el nombre del usuario: ")
-        #cedula = input("Ingrese el numero de la cedula: ")
-        #   celular = input("Ingrese el numero de celular: ")
+    usuario = raw_input("Ingrese nombre de usuario: ")
+    password = raw_input("Ingrese password: ")
 
-"""
-        dt = open("dataset_1.csv", "w")
-        dt_csv_w = csv.writer(dt)
-        data = [["Santiago", 1004752259]]
-        dt_csv_w.writerows(data)
-        dt.close()
-"""
+    nombre = raw_input("Ingrese el nombre real: ")
+    cedula = input("Ingrese el numero de la cedula: ")
+    celular = input("Ingrese el numero de celular: ")
 
 
-"""
-        with open('dataset_1.csv', 'w') as csvfile:
-            fieldnames = []
-"""
+    # BUSCAR LA CEDULA EN EL DATASET
+    read_data = pd.read_csv('dataset.csv', header = 0)
+    __ced_buscar = read_data["CEDULA"]
+    __ced_buscar_1 = __ced_buscar[__ced_buscar == cedula]
 
+    # CREAR UN DATASET COMPARATIVO EN CASO DE NO ENCONTRAR LA CEDULA
+    __ced_buscar_comp = __ced_buscar[__ced_buscar == 234565432345678876543]
+
+    if __ced_buscar_1.shape == __ced_buscar_comp.shape:
+        # SI ENTRA AQUI, NO SE ENCUENTRA EL USUARIO EN EL DATASET
+
+        # INSERTAR EL CONTENIDO AL DATASET
+        data = []
+        contador = 1
+        __hora = time.strftime("%H:%M:%S")
+        lista = [usuario, password, nombre, cedula, celular, contador, __hora]
+        data.append(lista)
+        my_df = pd.DataFrame(data)
+        my_df.to_csv('dataset.csv', mode = 'a', index = False, header = False,
+                     sep=",")
+    else:
+        # SI ENTRA AQUI, EL USUARIO FUE ENCONTRADO EN EL DATASET
+        print("gancho")
+
+
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------
 create_dataset()
