@@ -81,12 +81,31 @@ def create_dataset():
                      sep=",")
     else:
         # SI ENTRA AQUI, EL USUARIO FUE ENCONTRADO EN EL DATASET
-        print("gancho")
+
+        # EVALUAR EL VALOR DEL CONTADOR DEL USUARIO
+        __i = 0
+        row_data = read_data.ix[__i:__i]
+        while True:
+            row_data = read_data.ix[__i:__i]
+            row_contador = row_data.ix[:,5]
+            try:
+                #print("la fila ", __i, " tiene contador: ", list(row_contador)[0])
+                # SI EL VALOR ESTA ENTRE 1-4, CONTADOR+=1 Y NUEVA HORA
+                __counter = int(list(row_contador)[0])
+                if __counter > 0 and __counter < 5:
+                    __counter+=1
+                    
+
+                __i+=1
+            except IndexError as e:
+                break
 
 
 
 
 
+
+        # SI EL VALOR ES >4 , CALCULAR PROMEDIO HORAS Y DIAGNOSTICAR MARKED
 
 
 
@@ -95,4 +114,9 @@ def create_dataset():
 
 
 # -----------------------------------------------------------------------------
-create_dataset()
+
+def main():
+    create_dataset()
+
+if __name__ == '__main__':
+    main()
