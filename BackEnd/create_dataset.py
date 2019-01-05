@@ -1,30 +1,4 @@
-# MACRO ALGORITMO
-
 """
-HACER UN PROGRAMA QUE:
-
-    1. PIDA LA CANTIDAD DE CASOS DE PRUEBA (OMITIR ESTA PASO)
-
-    2. POR CADA CASO DE PRUEBA, PIDA EL NOMBRE, LA CEDULA, EL CELULAR
-
-    3. BUSQUE LA CEDULA EN EL ARCHIVO CSV
-
-    4. SI NO LA ENCUENTRA, CREAR UN EXAMPLE:
-            * NOMBRE
-            * CEDULA
-            * CELULAR
-            * CONTADOR DE REGISTROS
-            * HORA DEL PRIMER REGISTRO
-
-    5. SI LA ENCUENTRA, REVISE EL CONTADOR DE REGISTROS:
-
-        5.1 SI CONTADOR ESTA ENTRE 1 Y 4, AUMENTE EN 1 EL CONTADOR E INGRESE LA
-            HORA DEL REGISTRO EN UNA NUEVA COLUMNA
-
-        5.2 SI CONTADOR ES MAYOR A 4, COMPARE EL VALOR DE LA HORA DEL REGISTRO
-            ACTUAL AL ULTIMO REGISTRO, SI HAY UNA DIFERENCIA MENOR A MEDIA HORA,
-            ASIGNAR UN VALOR 1 A UNA CARACTERISTICA LLAMADA MARKED
-
                 5.2.1 PARA CALCULAR EL PROMEDIO:
                             * GENERAR DOS VARIABLES (PROMEDIO Y DIFERENCIA)
                             * HACER UN CICLO QUE RECORRA TODA LA FILA
@@ -47,6 +21,22 @@ import pandas as pd
 import calendar
 import csv
 
+list_names= ["USUARIO","PASSWORD","NOMBRE","CEDULA",
+             "CELULAR","CONTADOR","HORA 1","HORA 2",
+             "HORA 3","HORA 4","HORA 5","HORA 6","HORA 7",
+             "HORA 8","HORA 9","HORA 10","HORA 11","HORA 12",
+             "HORA 13","HORA 14","HORA 15","HORA 16","HORA 17",
+             "HORA 18","HORA 19","HORA 20","HORA 21","HORA 22",
+             "HORA 23","HORA 24","PROMEDIO","MARKED"]
+
+def restar_hora(self,hora1,hora2):
+        formato = "%H:%M:%S"
+        h1 = datetime.strptime(hora1, formato)
+        h2 = datetime.strptime(hora2, formato)
+        resultado = h1 - h2
+        return str(resultado)
+
+
 def create_dataset():
 
     # OBTENER LOS DATOS DEL USUARIO
@@ -60,7 +50,7 @@ def create_dataset():
 
 
     # BUSCAR LA CEDULA EN EL DATASET
-    read_data = pd.read_csv('dataset.csv', header = 0)
+    read_data = pd.read_csv('dataset.csv', header = None, names=list_names)
     __ced_buscar = read_data["CEDULA"]
     __ced_buscar_1 = __ced_buscar[__ced_buscar == cedula]
 
@@ -71,8 +61,8 @@ def create_dataset():
         # SI ENTRA AQUI, NO SE ENCUENTRA EL USUARIO EN EL DATASET
 
         # INSERTAR EL CONTENIDO AL DATASET
-        data = []
         contador = 1
+        data = []
         __hora = time.strftime("%H:%M:%S")
         lista = [usuario, password, nombre, cedula, celular, contador, __hora]
         data.append(lista)
@@ -82,25 +72,77 @@ def create_dataset():
     else:
         # SI ENTRA AQUI, EL USUARIO FUE ENCONTRADO EN EL DATASET
 
-        # EVALUAR EL VALOR DEL CONTADOR DEL USUARIO
+        # CREA UN SISTEMA PARA RECORRER EL DATASET POR FILAS
         __i = 0
         row_data = read_data.ix[__i:__i]
         while True:
-            row_data = read_data.ix[__i:__i]
-            row_contador = row_data.ix[:,5]
+
+            # CREA UN TRY/EXCEPT PARA CAPTURAR EL ERROR AL SUPERAR EL INDEX
             try:
-                #print("la fila ", __i, " tiene contador: ", list(row_contador)[0])
-                # SI EL VALOR ESTA ENTRE 1-4, CONTADOR+=1 Y NUEVA HORA
-                __counter = int(list(row_contador)[0])
-                if __counter > 0 and __counter < 5:
-                    __counter+=1
-                    
+
+                # BUSCA MEDIANTE UN IF EL USUARIO DESEADO
+                __var = read_data.loc[__i, "CEDULA"]
+
+                if str(__var) == str(cedula):
+
+                    # ANALIZA SI EL CONTADOR DE REGISTROS ESTA ENTRE 1-4
+                    if int(read_data.loc[__i, "CONTADOR"]) > 0 and int(read_data.loc[__i, "CONTADOR"]) < 5:
+
+
+                        # INGRESA LA NUEVA HORA
+
+                        # CONTADOR PARA SABER CUANTAS HORAS DEBE TENER
+                        __counter_hours = int(read_data.loc[__i, "CONTADOR"])
+
+                        read_data.iloc[__i, 6 + __counter_hours] =  time.strftime("%H:%M:%S")
+
+
+                        # AUMENTA EN 1 EL CONTADOR DE REGISTROS
+                        read_data.loc[__i, "CONTADOR"] = int(read_data.loc[__i, "CONTADOR"]) + 1
+
+                        read_data.to_csv('dataset.csv', index = False, header = False,
+                                     sep=",")
+                        break
+                    else:
+
+                        # AQUI SE DEBE SACAR EL PROMEDIO ENTRE HORA DE REGISTROS
+
+                        # SACA EL CONTADOR ACTUAL DE REGISTROS DEL USUARIO
+                        __counter_hours = int(read_data.loc[__i, "CONTADOR"])
+
+                        # LISTA DONDE SE ALMACENARAN LAS DIFERENCIAS ENTRE HORAS DE REGISTRO
+                        __list_dif = []
+
+                        # CALCULA EL PROMEDIO DE TIEMPO ENTRE REGISTROS
+
+                        for __j in range(7, 7+__counter_hours):
+
+                            # EVALUA SI LA HORA ACTUAL ES LA ULTIMA
+                            if read_data.loc[__i,__j+1] == "nan":
+                                break
+
+                            __hour_actual = read_data.loc[__i,__j]
+                            __hour_previous = read_data.loc[__i,__j-1]
+
+                            __h_diference = restar_hora(__hour_actual, __hour_previous)
+
+                            # FORMATO HORA <00:00:00>(HORA: 0-1)(MINUTOS: 3-4)(SEGUNDOS 6-7)
+
+                            _test_hour = int(__h_diference[0:1])
+                            _test_min = int(__h_diference[3:4])
+
+                            if _test_hour == 0 and _test_min <
+
+
+
+                # ANALIZA SI ES PARAMETRO ACTUAL ES EL ULTIMO EN LAS FILAS
+                # SI LO ES, SALTARA INDEXERROR
+                __analizer_next = list(read_data.ix[__i+1:__i+1].ix[:,5])[0]
 
                 __i+=1
-            except IndexError as e:
+
+            except IndexError:
                 break
-
-
 
 
 
