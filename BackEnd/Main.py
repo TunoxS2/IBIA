@@ -1,31 +1,29 @@
 import Users as u
 
 def main():
+    # ASK DATA
     __data_list = u.Recolect_data()
     __user_id = __data_list[4]
-    print(__user_id, type(__user_id))
     __user_founded = u.Find_user(__user_id)
-
+    # CHECK THE USER LOGIN
     if __user_founded:
         __index = 0
 
         while True:
             try:
-
-                if u.Locate_user(__index, __data_list[4]):
+                # LOCATE THE USER IN THE DATA
+                if u.Locate_user(__index, __user_id):
+                    # CALCULAR CONTADOR
                     __counter = u.Review_counter(__index)
-
-                    if __counter == 1:
-                        u.Add_checkin(__index)
-                        return 0
-                    else:
-                        print("La que le espera, papa")
-
+                    # REVISAR HORA (LLEGA CON EL INDEX DEL EXAMPLE)
+                    u.Locate_hour(__index, __counter)
+                    break
                 __index += 1
 
             except IndexError:
                 break
     else:
+        # SIGN UP A USER
         u.insert_user(__data_list)
     return 0
 
