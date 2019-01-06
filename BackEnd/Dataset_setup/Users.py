@@ -15,8 +15,8 @@ def Recolect_data():
     __counter = 1
     __hour = time.strftime("%H:%M:%S")
 
-    __list = [[__username, __password, __email, __name, __id, __cellphone,
-               __counter, __hour]]
+    __list = [__username, __password, __email, __name, __id, __cellphone,
+               __counter, __hour]
     return __list
 
 # ------------------------------------------------------------------------------
@@ -39,19 +39,25 @@ def Columns_names():
 # ------------------------------------------------------------------------------
 
 def insert_user(__data):
-    __dataset = pd.DataFrame(__data)
+    __list = []
+    __list.append(__data)
+    __dataset = pd.DataFrame(__list)
     __dataset.to_csv('dataset.csv', mode = 'a',
                                   index = False,
                                   header = False,
                                   sep=",")
-    return
 
 # ------------------------------------------------------------------------------
 
 def Find_user(__ID):
-    __Founded = str(__dataset[__dataset["ID"] == __ID])
-    __dataset =pd.read_csv('dataset.csv', header = None, names=Columns_names())
-    if __Founded == "Empty DataFrame":
+    __list_names = Columns_names()
+    __dataset =pd.read_csv('dataset.csv', header = None, names=__list_names)
+
+    __zeus = __dataset["ID"]
+    __zeus_1 = __zeus[__dataset["ID"] == __ID]
+    __zeus_calvo = __zeus[__zeus == 2345654345432345422345]
+
+    if __zeus_1.shape == __zeus_calvo.shape:
         return False
     else:
         return True
@@ -88,7 +94,15 @@ def Add_checkin(__index):
     __dataset =pd.read_csv('dataset.csv', header = None, names=Columns_names())
     __counter_hour = int(__dataset.loc[__index, "COUNTER"])
 
-    #__dataset.iloc[__index, 7 + __counter_hour] =  time.strftime("%H:%M:%S")
+    __column_var = 7+__counter_hour
+    __Flag = True
+    __list = Columns_names
+
+    while __Flag:
+        if "HOUR" in __list[__column_var]:
+            __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
+        else:
+            __column_var+=1
 
     # INCREASE COUNTER
     __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,
