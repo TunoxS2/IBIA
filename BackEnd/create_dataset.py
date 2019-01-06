@@ -90,7 +90,7 @@ def create_dataset():
 
 
                         # INGRESA LA NUEVA HORA
-
+                        print(str(read_data[read_data["CEDULA"] == 1004752250]))
                         # CONTADOR PARA SABER CUANTAS HORAS DEBE TENER
                         __counter_hours = int(read_data.loc[__i, "CONTADOR"])
 
@@ -131,7 +131,7 @@ def create_dataset():
                             _test_hour = int(__h_diference[0:1])
                             _test_min = int(__h_diference[3:4])
 
-                            if _test_hour == 0 and _test_min <
+                            #if _test_hour == 0 and _test_min <
 
 
 
