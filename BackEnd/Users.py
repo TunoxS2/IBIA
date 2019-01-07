@@ -91,152 +91,84 @@ def Hour_diference(__hour_2, __hour_1):
     return str(__actual_hour - __previous_hour)
 
 # ------------------------------------------------------------------------------
-"""
-def Add_checkin(__index):
-    # NEW HOUR
-    __dataset =pd.read_csv('dataset.csv', header = None, names=Columns_names())
-    __counter_hour = int(__dataset.loc[__index, "COUNTER"])
-
-    __column_var = 7+__counter_hour
-    __Flag = True
-    __list = Columns_names()
-
-    while __Flag:
-        if "HOUR" in __list[__column_var]:
-            __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
-            __Flag = False
-        else:
-            __column_var+=1
-
-    # INCREASE COUNTER
-    __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,
-                                                          "COUNTER"]) + 1
-    __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
-    return
-"""
-# ------------------------------------------------------------------------------
 
 def Even_hour(__index, __column_var):
     # IMPORTAR DATASET Y LISTA DE COLUMNAS
     __dataset = pd.read_csv('dataset.csv', header = None, names=Columns_names())
     __list = Columns_names()
  # -------------------------------------------------------------------------- #
-    # SI EL USUARIO YA HA ENTRADO EN PROCESO DE ANALISIS
     if __dataset.loc[__index, "ANALYZE"] == 1:
-        # CALCULAR LA HORA ACTUAL - PREVIA Y CALCULAR DIFERENCIA
+
+        __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
+        __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,"COUNTER"]) + 1
+
         __actual_h = __dataset.iloc[__index, __column_var]
-        print(__actual_h," ",__column_var," ",__list[__column_var])
         __previous_h = __dataset.iloc[__index, __column_var-1]
         __diff = Hour_diference(__actual_h, __previous_h)
-        print(__previous_h," ",__column_var," ",__list[__column_var-1])
-        __diff = abs(__diff)
         _test_hour = int(__diff[0:1])
         _test_min = int(__diff[3:4])
-        # SI LA DIFERENCIA ENTRE HORAS ES RARA
+
+        __da_real_nigga_hours = _test_min + (_test_hour*60)
+
         if __da_real_nigga_hours <= 65:
-            # MARCAR TRAMPOSO
             __dataset.loc[__index, "MARKED"] == 1
-            # INGRESAR LA DIFERENA ENTRE HORAS
             __dataset.iloc[__index,__column_var +1] = __diff
-            # INGRESA LA HORA ACTUAL
-            __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
-            # INGRESAR EL AUMENTO DEL CONTADOR
-            __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,"COUNTER"]) + 1
-            # SOBREESCRIBIR EL DATASET
             __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
             return
         else:
-            __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
             __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,"COUNTER"]) + 1
             __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
             return
  # -------------------------------------------------------------------------- #
-    # INGRESA LA HORA ACTUAL
     __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
-    # INGRESAR EL AUMENTO DEL CONTADOR
     __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,"COUNTER"]) + 1
-    # CALCULAR LA HORA ACTUAL Y LA HORA DEL ULTIMO REGISTRO
+
     __actual_h = __dataset.iloc[__index, __column_var]
     __previous_h = __dataset.iloc[__index, __column_var-1]
-    # CALCULAR LA DIFERENCIA ENTRE HORAS
     __diff = Hour_diference(__actual_h, __previous_h)
     _test_hour = int(__diff[0:1])
     _test_min = int(__diff[3:4])
-    # CONVERTIR LA DIFERENCIA A MINUTOS
+
     __da_real_nigga_hours = _test_min + (60 * _test_hour)
-    # ANALIZAR LA DIFERENCIA ENTRE REGISTROS
+
     if __da_real_nigga_hours <= 65:
-        # MARCAR AL USUARIO PARA ANALISIS
         __dataset.loc[__index,"ANALYZE"] = 1
-        # INGRESAR LA DIFERENA ENTRE HORAS
         __dataset.iloc[__index,__column_var +1] = __diff
-        # SOBREESCRIBIR EL DATASET
         __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
     else:
         __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
-
     return
 
 # ------------------------------------------------------------------------------
 
 def Odd_hour(__index, __column_var):
-    # IMPORTAR EL DATASET
     __dataset = pd.read_csv('dataset.csv', header = None, names=Columns_names())
-    # IMPORTAR LA LISTA DE COLUMNAS
     __list = Columns_names()
-    # INGRESAR LA HORA ACTUAL
     __dataset.iloc[__index, __column_var] =  time.strftime("%H:%M:%S")
-    # INGRESAR EL AUMENTO DEL CONTADOR
     __dataset.loc[__index, "COUNTER"] = int(__dataset.loc[__index,"COUNTER"]) + 1
-    # SOBREESCRIBIR EL DATASET
     __dataset.to_csv('dataset.csv', index = False, header = False, sep=",")
     return
 
 # ------------------------------------------------------------------------------
 
-def Locate_hour(__index, __counter):
-    # INDEX ES DEL EXAMPLE
-    var = 0
-    # IMPORTAR DATASET, NUMERO DE LA COLUMNA DE LA HORA ACTUAL, LISTA DE COLUMNAS
+def Locate_hour(__index,__counter):
     __dataset = pd.read_csv('dataset.csv', header = None, names=Columns_names())
     __column_var = 7 + int(__counter)
     __list = Columns_names()
-
-    if __list[__column_var][0:7] == "AVERAGE":
-        __column_var+=1
-
-    # CICLO PARA RECORRER LAS COLUMNAS HOUR EN SU ORDEN (H1, H2, ARV, H3, H4, ARV)
     while True:
-        # SABER SI LA COLUMNA ACTUAL ES UNA COLUMNA HOUR
         if __list[__column_var][0:4] == "HOUR":
-            # CHECK THE LAST HOUR
-            # SABER SI ES UN REGISTRO IMPAR
-            if __list[__column_var + 1][0:4] == "HOUR":
-                var = 1
-            # SABER SI ES UN REGISTRO PAR
-            if __list[__column_var + 2][0:4] == "HOUR":
-                var = 2
-            # EJECUTAR HORA IMPAR
-            if var == 1:
-                # INDEX DEL EXAMPLE, NUMERO DE LA COLUMNA ACTUAL (ULTIMA HORA)
-                if __list[__column_var-1][0:7] == "AVERAGE":
-                    Odd_hour(__index, __column_var)
-                else:
-                    Odd_hour(__index, __column_var+1)
+
+            if __counter % 2 == 0:
+                print(__list[__column_var])
+                Odd_hour(__index, __column_var)
                 print("impar")
-                break
-            # EJECUTAR HORA PAR
-            elif var == 2:
-                # INDEX DEL EXAMPLE, NUMERO DE LA COLUMNA ACTUAL (ULTIMA HORA)
+                return
+            else:
+                print(__list[__column_var])
                 Even_hour(__index, __column_var)
                 print("par")
-                break
-            break
-        __column_var+1
+                return
+        __column_var+=1
 
-# ------------------------------------------------------------------------------
-
-def Check_mate():
-    return
-
+# INVESTIGAR PROBLEMA AL CARGAR EL 4 REGISTRO
 # ------------------------------------------------------------------------------
