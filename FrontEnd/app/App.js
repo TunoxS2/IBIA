@@ -1,7 +1,8 @@
 
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View
+import {
+  Text,
 } from 'react-native';
 
 import Home from './src/screens/containers/home';
@@ -18,8 +19,7 @@ export default class App extends Component<Props> {
          <Text>categorias</Text>
          <Text>sugerencias</Text>          
         </Home>
-      
-    );
+      );
+    }
   }
-}
 
