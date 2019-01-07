@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "IBIA",
-    "slug": "IBIA",
+    "name": "AwesomeProject",
+    "slug": "AwesomeProject",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
