@@ -13,7 +13,9 @@ ScrollView,
 WebView
 } from 'react-native';
 
-export default class Touchables extends Component {
+import ImagenExterna from './ImagenExterna'
+
+export default class App extends Component {
 
 constructor(props, env){
   super(props, env);
@@ -36,20 +38,19 @@ constructor(props, env){
     return (
       <ScrollView>
         <View style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: this.state.colorFondo,
-      }}>
-          <Image
-            style={{width: 500, height: 500}}
-            source={{uri: 'https://www.rizog.com/wp-content/uploads/2017/02/Dise%C3%B1o-del-b%C3%BAho-dise%C3%B1os-para-mujeres-1.jpg'}}
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: this.state.colorFondo,
+          }}>
+          <ImagenExterna 
+          texto = {"Imagen Buho"} urlImagen="https://unsplash.com/photos/tG5dTPMf1I4"
           />
           <WebView
             source={{uri: this.state.direccion}}
             style={{width: Dimensions.get('window').width, height: 500, backgroundColor: 'white'}}
           />
-        <TextInput
+          <TextInput
             style={{height: 40, borderColor: 'gray', borderWidth: 1, width: (Dimensions.get('window').width * 80 / 100),margin: 15,}}
             placeholder="Type here to translate!"
             onChangeText={(text) => this.setState({text})}
@@ -63,7 +64,7 @@ constructor(props, env){
           <TouchableOpacity style={styles.boton}  onPress={this.cambiarColor.bind(this)}>
           <Text style={styles.textoBoton}>cambiar color</Text>
           </TouchableOpacity>
-          </View>
+        </View>
        </ScrollView>
     );
   }
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'yellow',
   },
   welcome: {
     fontSize: 20,
