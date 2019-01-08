@@ -1039,9 +1039,9 @@ babel-plugin-syntax-trailing-function-commas@^7.0.0-beta.0:
   integrity sha512-Xj9XuRuz3nTSbaTXWv3itLOcxyF4oPD8douBBmj7U9BBC6nEBYfyOJYQMf/8PJAFotC62UY5dFfIGEPr7WswzQ==
 
 babel-preset-fbjs@^3.0.0, babel-preset-fbjs@^3.0.1:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-fbjs/-/babel-preset-fbjs-3.1.0.tgz#6d1438207369d96384d09257b01602dd0dda6608"
-  integrity sha512-j+B9xZsnqWFxHaqt3B8aFYftSgrcgbO5NF3mTtHYd6R442NJW2aBk3k+XvxXwIia98UuZxCg8psZY79bXbhwew==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-fbjs/-/babel-preset-fbjs-3.1.1.tgz#1412c70dec67d67c10326a3b56045def72985025"
+  integrity sha512-zg3n3PN6PXOObLCEgJQxLHZXui8S6RJe4uToP7n2grmUSEfgMMolv3x41K4jWzhNkgYNxTwflVlVmd8fketjOg==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.0.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -4526,9 +4526,9 @@ react-deep-force-update@^1.0.0:
   integrity sha512-WUSQJ4P/wWcusaH+zZmbECOk7H5N2pOIl0vzheeornkIMhu+qrNdGFm0bDZLCb0hSF0jf/kH1SgkNGfBdTc4wA==
 
 react-devtools-core@^3.4.2:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.5.1.tgz#819dc6891780b9132943e75598279126fafaebba"
-  integrity sha512-QRO564DFkbPLRGwh/oDzO9YJJIZUqFUfoqhRZvXyNflQC7WK6qx+FKc2OENXTnvGDQ0Psf8X+YGQSALU7LKUzg==
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.5.3.tgz#5d1f58afa1bac644e70945992444983a06386795"
+  integrity sha512-0/0OGEjchZNgKzahGi6TqHfMEc9J6VMYl6NXCawZB5levXEwh9Svij+iaIMP1LvgEfOzA8tF6jnvYzzvQh61zg==
   dependencies:
     shell-quote "^1.6.1"
     ws "^3.3.1"
