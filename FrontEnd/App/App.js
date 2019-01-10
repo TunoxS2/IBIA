@@ -1,81 +1,40 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
+
 import React, {Component} from 'react';
-import { Alert,
-Platform,
-AppRegistry,
-StyleSheet,
-Text, 
-View, 
-TouchableOpacity,
-TextInput,
-Dimensions,
-Image,
-ScrollView,
-WebView
-} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
-import ImagenExterna from './ImagenExterna'
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
 
-export default class App extends Component {
-
-constructor(props, env){
-  super(props, env);
-
-  this.state = {
-    colorFondo: 'blue',
-    direccion: 'http://google.com'
-  }
-}
-    cambiarColor(){
-
-    this.setState({colorFondo: this.state.text})
-    }
-
-    cambiarPagina(){
-      this.setState({direccion: this.state.text})
-    }
-
+type Props = {};
+export default class App extends Component<Props> {
   render() {
     return (
-      <ScrollView>
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: this.state.colorFondo,
-          }}>
-          <ImagenExterna 
-          texto = {"Imagen Buho"} urlImagen="https://unsplash.com/photos/tG5dTPMf1I4"
-          />
-          <WebView
-            source={{uri: this.state.direccion}}
-            style={{width: Dimensions.get('window').width, height: 500, backgroundColor: 'white'}}
-          />
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1, width: (Dimensions.get('window').width * 80 / 100),margin: 15,}}
-            placeholder="Type here to translate!"
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
-          />
-
-          <TouchableOpacity style={styles.boton}  onPress={this.cambiarColor.bind(this)}>
-          <Text style={styles.textoBoton}>cambiar pagina</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.boton}  onPress={this.cambiarColor.bind(this)}>
-          <Text style={styles.textoBoton}>cambiar color</Text>
-          </TouchableOpacity>
-        </View>
-       </ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome to React Native!</Text>
+        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.instructions}>{instructions}</Text>
+      </View>
     );
   }
-} 
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
@@ -87,21 +46,4 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-boton: {
-  backgroundColor: 'purple',
-  width: 300,
-  height: 50,
-  borderWidth: 2,
-  borderColor: 'black',
-  borderRadius: 15,
-  alignItems: 'center',
-  flexDirection: 'row'
-
-},
-textoBoton:{
-  color: 'white',
-  fontSize: 20,
-  textAlign: 'center',
-  flex: 1
-}
 });
