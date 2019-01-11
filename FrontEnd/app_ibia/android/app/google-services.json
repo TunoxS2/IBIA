@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "492576818362",
+    "firebase_url": "https://ibia-9c137.firebaseio.com",
+    "project_id": "ibia-9c137",
+    "storage_bucket": "ibia-9c137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492576818362:android:89b93d10c8691b59",
+        "android_client_info": {
+          "package_name": "com.app_ibia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492576818362-45e4a98rc4atcf25ousu5vl2kuq29uri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app_ibia",
+            "certificate_hash": "362a984c910d13b781f255e845a0fcb6e722f47d"
+          }
+        },
+        {
+          "client_id": "492576818362-tjaiv9a5pt9sdl14396rahb91mv5nl7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEq4o9eRH2m01XB42XVqTczJRMl9UEQeE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492576818362-tjaiv9a5pt9sdl14396rahb91mv5nl7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
